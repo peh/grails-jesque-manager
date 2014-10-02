@@ -35,9 +35,17 @@
 /plugins
 /web-app/plugins
 /web-app/WEB-INF/classes
+/web-app/node_*
 
 # "temporary" build files
 /target
-
+.idea
 # other
+*.iws
+
+
+stacktrace.log
+plugin.xml
+*.ipr
+*.iml
 *.iws
