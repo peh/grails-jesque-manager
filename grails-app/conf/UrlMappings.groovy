@@ -2,6 +2,8 @@ class UrlMappings {
 
     static mappings = {
         "/"(controller: 'jesqueManager', action: 'index')
+        "/jobs"(controller: 'jesqueManagerJob', action: 'index')
+
         "/jesqueManager/api/queues"(controller: 'jesqueManagerQueue', action: 'apiNames')
         "/jesqueManager/api/workers"(controller: 'jesqueManagerWorker', action: 'apiWorkers')
 

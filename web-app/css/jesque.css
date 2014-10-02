@@ -26,3 +26,6 @@ body {
   -ms-flex-direction: column;
   flex-direction: column;
 }
+tr.clickable {
+  cursor: pointer;
+}

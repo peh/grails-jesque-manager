@@ -54,7 +54,7 @@
 </div>
 <script id="queue-list-template" type="text/x-handlebars-template">
 {{#each queues}}
-<tr>
+<tr class="clickable" data-target="${raw(g.createLink(controller: 'jesqueManagerJob', action: 'details'))}/{{name}}">
     <td>
         {{name}}
     </td>
@@ -65,7 +65,7 @@
 {{/each}}
 </script>
 <script id="failed-template" type="text/x-handlebars-template">
-<tr>
+<tr class="clickable {{#if danger}}danger{{else}}success{{/if}}" data-target="${raw(g.createLink(controller: 'jesqueManagerJob', action: 'failed'))}">
     <td>
         <g:message code="grails.plugin.jesque.manager.jobs.failed.label"/>
     </td>
@@ -122,6 +122,7 @@
                 $workerListTable.find('tbody').html(workerListTemplate(data));
             }).fail(onFail);
             $.ajax("${raw(g.createLink(controller: 'jesqueManagerJob', action: 'apiFailedCount'))}").done(function(data) {
+                data["danger"] = data.count > 0;
                 $queueListTable.find('tfoot').html(failedTemplate(data));
             }).fail(onFail);
         }

@@ -58,4 +58,5 @@
     ${g.message(code: "grails.plugin.jesque.manager.view.footer")}
 </footer>
 </body>
+<script src="${resource(dir: 'js', file: 'jesque.js')}"></script>
 </html>
