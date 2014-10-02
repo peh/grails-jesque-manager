@@ -1,13 +1,13 @@
 class UrlMappings {
 
-	static mappings = {
-        "/$controller/$action?/$id?(.$format)?"{
-            constraints {
-                // apply constraints here
-            }
-        }
-
+    static mappings = {
         "/"(controller: 'jesqueManager', action: 'index')
-        "500"(view:'/error')
-	}
+        "/jesqueManager/api/queues"(controller: 'jesqueManagerQueue', action: 'apiNames')
+        "/jesqueManager/api/workers"(controller: 'jesqueManagerWorker', action: 'apiWorkers')
+
+        "/jesqueManager/api/failedCount"(controller: 'jesqueManagerJob', action: 'apiFailedCount')
+        "/jesqueManager/api/failed"(controller: 'jesqueManagerJob', action: 'apiFailed')
+
+        "500"(view: '/error')
+    }
 }

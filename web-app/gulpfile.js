@@ -48,9 +48,9 @@ gulp.task("default", function () {
     });
 
     // watch for changes in the less folder
-    gulp.watch("./css/less/*", ["less"]);
+    gulp.watch("./css/less/*.less", ["less"]);
 
-    gulp.watch("./css/*", function(evt) {
+    gulp.watch("./css/*.css", function(evt) {
         server.changed(evt.path);
     });
 });

@@ -1,6 +1,7 @@
 package jesque.manager
 
 import grails.transaction.Transactional
+import net.greghaines.jesque.meta.QueueInfo
 import net.greghaines.jesque.meta.dao.QueueInfoDAO
 
 @Transactional
@@ -8,7 +9,7 @@ class JesqueQueuesService {
 
     QueueInfoDAO queueInfoDao
 
-    def getQueueInfos(){
+    List<QueueInfo> getQueueInfos(){
         queueInfoDao.queueInfos
     }
 
