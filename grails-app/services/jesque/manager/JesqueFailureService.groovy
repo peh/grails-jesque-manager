@@ -1,6 +1,7 @@
 package jesque.manager
 
 import grails.transaction.Transactional
+import net.greghaines.jesque.JobFailure
 import net.greghaines.jesque.meta.dao.FailureDAO
 
 @Transactional
@@ -24,7 +25,7 @@ class JesqueFailureService {
         failureDao.count
     }
 
-    def getFailures(long offset, long max) {
+    List<JobFailure> getFailures(long offset, long max) {
         failureDao.getFailures(offset, max)
     }
 

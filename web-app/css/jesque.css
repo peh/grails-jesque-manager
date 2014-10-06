@@ -3,9 +3,9 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 .footer {
+  position: fixed;
+  bottom: 0;
   background-color: #f8f8f8;
-  position: absolute;
-  bottom: 0px;
   width: 100%;
   height: 50px;
   text-align: center;
@@ -28,4 +28,12 @@ body {
 }
 tr.clickable {
   cursor: pointer;
+}
+div.container-fluid.content {
+  min-height: 600px;
+  margin-bottom: 55px;
+}
+section {
+  padding-top: 60px;
+  margin-top: -60px;
 }

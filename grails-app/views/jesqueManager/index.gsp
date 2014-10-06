@@ -110,7 +110,7 @@
         function onFail(){
             if(intervalId != -1){
                 clearInterval(intervalId);
-                $('#global-danger').text("${g.message(code: 'grails.plugin.jesque.manager.ajax.error')}")
+                $('#global-danger').text("${g.message(code: 'grails.plugin.jesque.manager.ajax.error')}").removeClass("hidden");
             }
         }
 

@@ -46,7 +46,7 @@ grails.project.dependency.resolution = {
         compile(':redis:1.5.5') {
             export = false
         }
-        compile(':jesque:0.9-SNAPSHOT') {
+        compile(':jesque:0.9.1-SNAPSHOT') {
             changing = true
             export = false
         }

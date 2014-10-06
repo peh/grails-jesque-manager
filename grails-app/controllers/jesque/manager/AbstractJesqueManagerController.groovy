@@ -12,4 +12,9 @@ abstract class AbstractJesqueManagerController {
             model
         }
     }
+
+    protected void sanitizeParams() {
+        params.max = params.max ?: 20
+        params.offset = params.offset ?: 0
+    }
 }
