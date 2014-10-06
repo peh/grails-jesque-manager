@@ -45,6 +45,9 @@
                 <th>
                     <g:message code="grails.plugin.jesque.manager.view.overview.worker.failed"/>
                 </th>
+                <th>
+                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.queues"/>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -70,6 +73,7 @@
         <g:message code="grails.plugin.jesque.manager.jobs.failed.label"/>
     </td>
     <td>
+
         {{count}}
     </td>
 </tr>
@@ -92,6 +96,13 @@
     </td>
     <td>
         {{failed}}
+    </td>
+    <td>
+        {{#each queues}}
+            {{#if this != JAVA_DYNAMIC_QUEUES}}
+                {{this}}
+            {{/if}}
+        {{/each}}
     </td>
 </tr>
 {{/each}}

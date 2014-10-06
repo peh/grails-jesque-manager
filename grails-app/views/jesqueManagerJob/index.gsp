@@ -7,7 +7,7 @@
 
 <body>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <table id="queue-list-table" class="table table-hover">
             <thead>
             <tr>
@@ -23,32 +23,6 @@
             </tbody>
             <tfoot>
             </tfoot>
-        </table>
-    </div>
-
-    <div class="col-md-6">
-        <table id="worker-list-table" class="table table-hover">
-            <thead>
-            <tr>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.host"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.pid"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.state"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.processed"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.failed"/>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
         </table>
     </div>
 </div>
@@ -75,34 +49,11 @@
 </tr>
 </script>
 
-<script id="worker-list-template" type="text/x-handlebars-template">
-{{#each workers}}
-<tr>
-    <td>
-        {{host}}
-    </td>
-    <td>
-        {{pid}}
-    </td>
-    <td>
-        {{state.name}}
-    </td>
-    <td>
-        {{processed}}
-    </td>
-    <td>
-        {{failed}}
-    </td>
-</tr>
-{{/each}}
-</script>
 <g:javascript>
     $(function () {
         var $queueListTable = $('#queue-list-table');
-        var $workerListTable = $('#worker-list-table');
 
         var queueListTemplate = Handlebars.compile($("#queue-list-template").html());
-        var workerListTemplate = Handlebars.compile($("#worker-list-template").html());
         var failedTemplate = Handlebars.compile($("#failed-template").html());
 
         var intervalId = -1;
@@ -117,9 +68,6 @@
         function refresh() {
             $.ajax("${raw(g.createLink(controller: 'jesqueManagerQueue', action: 'apiNames'))}").done(function(data) {
                 $queueListTable.find('tbody').html(queueListTemplate(data));
-            }).fail(onFail);
-             $.ajax("${raw(g.createLink(controller: 'jesqueManagerWorker', action: 'apiWorkers'))}").done(function(data) {
-                $workerListTable.find('tbody').html(workerListTemplate(data));
             }).fail(onFail);
             $.ajax("${raw(g.createLink(controller: 'jesqueManagerJob', action: 'apiFailedCount'))}").done(function(data) {
                 $queueListTable.find('tfoot').html(failedTemplate(data));

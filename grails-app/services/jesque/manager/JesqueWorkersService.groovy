@@ -8,27 +8,32 @@ class JesqueWorkersService {
 
     WorkerInfoDAO workerInfoDao
 
-    def getActiveWorkers(){
+
+    def getAllWorkers() {
+        workerInfoDao.allWorkers
+    }
+
+    def getActiveWorkers() {
         workerInfoDao.activeWorkers
     }
 
-    def getWorkerCount(){
+    def getWorkerCount() {
         workerInfoDao.workerCount
     }
 
-    def getWorkerHostMap(){
+    def getWorkerHostMap() {
         workerInfoDao.workerHostMap
     }
 
-    def getActiveWorkerCount(){
+    def getActiveWorkerCount() {
         workerInfoDao.activeWorkerCount
     }
 
-    def getWorker(String name){
+    def getWorker(String name) {
         workerInfoDao.getWorker(name)
     }
 
-    def removeWorker(String name){
+    def removeWorker(String name) {
         workerInfoDao.removeWorker(name)
     }
 
