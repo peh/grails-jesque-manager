@@ -1,3 +1,5 @@
+import grails.plugin.jesque.QueueConfiguration
+
 // configuration for plugin testing - will not be included in the plugin zip
 
 log4j = {
@@ -19,4 +21,19 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+}
+
+
+grails {
+    jesque {
+        enabled = true
+        monitoring = true
+        skipPersistence = true
+        workers {
+            monitorPool {
+                workers = 3
+                queueNames = {QueueConfiguration.queueNames}
+            }
+        }
+    }
 }

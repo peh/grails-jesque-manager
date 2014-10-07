@@ -98,11 +98,7 @@
         {{failed}}
     </td>
     <td>
-        {{#each queues}}
-            {{#if this != JAVA_DYNAMIC_QUEUES}}
-                {{this}}
-            {{/if}}
-        {{/each}}
+        {{queues}}
     </td>
 </tr>
 {{/each}}
@@ -126,7 +122,7 @@
         }
 
         function refresh() {
-            $.ajax("${raw(g.createLink(controller: 'jesqueManagerQueue', action: 'apiNames'))}").done(function(data) {
+            $.ajax("${raw(g.createLink(controller: 'jesqueManagerQueue', action: 'apiQueues'))}").done(function(data) {
                 $queueListTable.find('tbody').html(queueListTemplate(data));
             }).fail(onFail);
              $.ajax("${raw(g.createLink(controller: 'jesqueManagerWorker', action: 'apiWorkers'))}").done(function(data) {

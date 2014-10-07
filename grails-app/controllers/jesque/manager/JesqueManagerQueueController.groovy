@@ -3,7 +3,7 @@ package jesque.manager
 class JesqueManagerQueueController extends AbstractJesqueManagerController {
 
 
-    def apiNames() {
+    def apiQueues() {
         jsonRender([queues: jesqueQueuesService.queueInfos])
     }
 }

@@ -48,17 +48,40 @@
                 <li class="dropdown ${controllerName == 'jesqueManagerJob' ? 'active' : ''}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><g:message code="grails.plugin.jesque.manager.nav.jobs"/> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li class="${controllerName == 'jesqueManagerJob' && actionName == 'index' ? 'active' : ''}">
-                            <g:link controller="jesqueManagerJob" action="index">
-                                <g:message code="grails.plugin.jesque.manager.nav.jobs.list"/>
-                            </g:link>
-                        </li>
+                        <g:if test="${grailsApplication.config.grails.jesque.monitoring == true}">
+                            <li class="${controllerName == 'jesqueManagerJob' && actionName == 'index' ? 'active' : ''}">
+                                <g:link controller="jesqueManagerJob" action="index">
+                                    <g:message code="grails.plugin.jesque.manager.nav.jobs.list"/>
+                                </g:link>
+                            </li>
+
+                            <li class="${controllerName == 'jesqueManagerJob' && actionName == 'manual' ? 'active' : ''}">
+                                <g:link controller="jesqueManagerJob" action="manual">
+                                    <g:message code="grails.plugin.jesque.manager.nav.jobs.manual"/>
+                                </g:link>
+                            </li>
+                        </g:if>
                         <li class="${controllerName == 'jesqueManagerJob' && actionName == 'failed' ? 'active' : ''}">
                             <g:link controller="jesqueManagerJob" action="failed">
                                 <g:message code="grails.plugin.jesque.manager.nav.jobs.failed"/>
                             </g:link>
                         </li>
+                        <li class="${controllerName == 'jesqueManagerJob' && actionName == 'triggers' ? 'active' : ''}">
+                            <g:link controller="jesqueManagerJob" action="triggers">
+                                <g:message code="grails.plugin.jesque.manager.nav.jobs.triggers"/>
+                            </g:link>
+                        </li>
+                        <li class="${controllerName == 'jesqueManagerJob' && actionName == 'delayed' ? 'active' : ''}">
+                            <g:link controller="jesqueManagerJob" action="delayed">
+                                <g:message code="grails.plugin.jesque.manager.nav.jobs.delayed"/>
+                            </g:link>
+                        </li>
                     </ul>
+                </li>
+                <li class="${controllerName == 'jesqueManagerWorker' ? 'active' : ''}">
+                    <g:link controller="jesqueManagerWorker" action="index">
+                        <g:message code="grails.plugin.jesque.manager.nav.workers"/>
+                    </g:link>
                 </li>
             </ul>
         </div><!--/.nav-collapse -->
