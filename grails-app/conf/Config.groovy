@@ -22,18 +22,3 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
-
-
-grails {
-    jesque {
-        enabled = true
-        monitoring = true
-        skipPersistence = true
-        workers {
-            monitorPool {
-                workers = 3
-                queueNames = {QueueConfiguration.queueNames}
-            }
-        }
-    }
-}

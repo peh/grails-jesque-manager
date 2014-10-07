@@ -78,11 +78,28 @@
                         </li>
                     </ul>
                 </li>
-                <li class="${controllerName == 'jesqueManagerWorker' ? 'active' : ''}">
-                    <g:link controller="jesqueManagerWorker" action="index">
-                        <g:message code="grails.plugin.jesque.manager.nav.workers"/>
-                    </g:link>
+                <li class="dropdown ${controllerName == 'jesqueManagerWorker' ? 'active' : ''}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><g:message code="grails.plugin.jesque.manager.nav.workers"/> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="${controllerName == 'jesqueManagerWorker' && actionName == 'index' ? 'active' : ''}">
+                            <g:link controller="jesqueManagerWorker" action="index">
+                                <g:message code="grails.plugin.jesque.manager.nav.workers.list"/>
+                            </g:link>
+                        </li>
+                        <li class="${controllerName == 'jesqueManagerWorker' && actionName == 'index' ? 'manual' : ''}">
+                            <g:link controller="jesqueManagerWorker" action="manual">
+                                <g:message code="grails.plugin.jesque.manager.nav.workers.manual"/>
+                            </g:link>
+                        </li>
+                    </ul>
                 </li>
+                <g:if test="${grailsApplication.config.grails.plugin.jesque.manager.nav.custom}">
+                    <g:each in="${grailsApplication.config.grails.plugin.jesque.manager.nav.custom}" var="item">
+                        <li class="${controllerName == "jesque${item}" ? 'active' : ''}">
+                            <g:link controller="jesque${item}"><g:message code="grails.plugin.jesque.manager.nav.${item.toLowerCase()}"/></g:link>
+                        </li>
+                    </g:each>
+                </g:if>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

@@ -1,7 +1,7 @@
-class UrlMappings {
+class JesqueManagerUrlMappings {
 
     static mappings = {
-        "/"(controller: 'jesqueManager', action: 'index')
+        "/jesqueManager"(controller: 'jesqueManager', action: 'index')
 
         "/jesqueManager/jobs"(controller: 'jesqueManagerJob', action: 'index')
         "/jesqueManager/jobs/failed"(controller: 'jesqueManagerJob', action: 'failed')

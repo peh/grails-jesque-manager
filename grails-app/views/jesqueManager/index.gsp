@@ -3,6 +3,9 @@
 <head>
     <title></title>
     <meta name="layout" content="jesque"/>
+    <plugin:isAvailable name="resources">
+        <r:layoutResources/>
+    </plugin:isAvailable>
 </head>
 
 <body>
@@ -103,7 +106,7 @@
 </tr>
 {{/each}}
 </script>
-<g:javascript>
+<script type="text/javascript">
     $(function () {
         var $queueListTable = $('#queue-list-table');
         var $workerListTable = $('#worker-list-table');
@@ -114,28 +117,31 @@
 
         var intervalId = -1;
 
-        function onFail(){
-            if(intervalId != -1){
+        function onFail() {
+            if (intervalId != -1) {
                 clearInterval(intervalId);
                 $('#global-danger').text("${g.message(code: 'grails.plugin.jesque.manager.ajax.error')}").removeClass("hidden");
             }
         }
 
         function refresh() {
-            $.ajax("${raw(g.createLink(controller: 'jesqueManagerQueue', action: 'apiQueues'))}").done(function(data) {
+            $.ajax("${raw(g.createLink(controller: 'jesqueManagerQueue', action: 'apiQueues'))}").done(function (data) {
                 $queueListTable.find('tbody').html(queueListTemplate(data));
             }).fail(onFail);
-             $.ajax("${raw(g.createLink(controller: 'jesqueManagerWorker', action: 'apiWorkers'))}").done(function(data) {
+            $.ajax("${raw(g.createLink(controller: 'jesqueManagerWorker', action: 'apiWorkers'))}").done(function (data) {
                 $workerListTable.find('tbody').html(workerListTemplate(data));
             }).fail(onFail);
-            $.ajax("${raw(g.createLink(controller: 'jesqueManagerJob', action: 'apiFailedCount'))}").done(function(data) {
+            $.ajax("${raw(g.createLink(controller: 'jesqueManagerJob', action: 'apiFailedCount'))}").done(function (data) {
                 data["danger"] = data.count > 0;
                 $queueListTable.find('tfoot').html(failedTemplate(data));
             }).fail(onFail);
         }
-        intervalId = setInterval(refresh, 1000)
 
+        intervalId = setInterval(refresh, 1000)
     });
-</g:javascript>
+</script>
+<plugin:isAvailable name="resources">
+    <r:layoutResources/>
+</plugin:isAvailable>
 </body>
 </html>

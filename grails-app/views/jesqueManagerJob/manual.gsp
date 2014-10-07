@@ -54,7 +54,7 @@
 </div>
 </script>
 
-<g:javascript>
+<script type="text/javascript">
     $(function () {
         var template = Handlebars.compile($("#attrib-input").html());
         var alertTemplate = Handlebars.compile($("#alert-template").html());
@@ -75,6 +75,6 @@
             }
         });
     });
-</g:javascript>
+</script>
 </body>
 </html>

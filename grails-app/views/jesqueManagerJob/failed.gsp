@@ -93,7 +93,7 @@
     </dd>
 </dl>
 </script>
-<g:javascript>
+<script type="text/javascript">
     $(function () {
         var $details = $('#failed-details');
         var detailsTemplate = Handlebars.compile($("#failed-details-template").html());
@@ -113,6 +113,6 @@
             });
         });
     });
-</g:javascript>
+</script>
 </body>
 </html>

@@ -69,7 +69,7 @@
     </div>
 </div>
 </script>
-<g:javascript>
+<script type="text/javascript">
     $(function () {
         var queueListTemplate = Handlebars.compile($("#workers-template").html());
 
@@ -107,6 +107,6 @@
             });
         }
     });
-</g:javascript>
+</script>
 </body>
 </html>

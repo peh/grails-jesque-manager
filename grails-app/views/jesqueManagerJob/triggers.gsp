@@ -56,7 +56,7 @@
         </table>
     </div>
 </div>
-<g:javascript>
+<script type="text/javascript">
     function remove(name){
         $.ajax({
             url: "${raw(g.createLink(controller: 'jesqueManagerJob', action: 'apiDeleteTrigger'))}",
@@ -66,6 +66,6 @@
                 }
         });
     }
-</g:javascript>
+</script>
 </body>
 </html>
