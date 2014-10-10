@@ -9,10 +9,18 @@ abstract class AbstractJesqueManagerController {
     def jesqueWorkersService
     def jesqueService
     def jesqueScheduledService
+    def grailsApplication
 
     protected void jsonRender(model) {
         render(contentType: 'application/json') {
             model
+        }
+    }
+
+    def beforeInterceptor = {
+        if(grailsApplication.config.grails.jesque.enabled) {
+            render "Jesque is disabled!"
+            return false
         }
     }
 
