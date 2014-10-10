@@ -34,8 +34,9 @@
                     <td>
                         ${scheduledJob.cronExpression}
                     </td>
-                    <td class="fromNow" data-time="${scheduledJob.trigger.nextFireTime.millis}">
-                        ${scheduledJob.trigger.nextFireTime}
+                    <td>
+                       <span class="fromNow" data-time="${scheduledJob.trigger.nextFireTime.millis}"></span>
+                        (<g:formatDate date="${scheduledJob.trigger.nextFireTime.toDate()}" type="datetime" style="LONG" />)
                     </td>
                     <td>
                         ${scheduledJob.jesqueJobQueue}
