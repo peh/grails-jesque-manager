@@ -1,7 +1,6 @@
 package jesque.manager
 
 import grails.plugin.jesque.QueueConfiguration
-import org.joda.time.DateTime
 import org.springframework.http.HttpStatus
 
 class JesqueManagerJobController extends AbstractJesqueManagerController {
@@ -40,7 +39,7 @@ class JesqueManagerJobController extends AbstractJesqueManagerController {
     }
 
     def triggers() {
-        [scheduledJobs: jesqueScheduledService.all]
+        [scheduledJobs: jesqueScheduledService.all.sort { it.trigger.nextFireTime.millis }]
     }
 
     def retryAll() {
