@@ -40,6 +40,8 @@ grails.project.dependency.resolution = {
             export = false
         }
 
+        build ':tomcat:7.0.54'
+
         compile(':redis:1.5.5') {
             export = false
         }

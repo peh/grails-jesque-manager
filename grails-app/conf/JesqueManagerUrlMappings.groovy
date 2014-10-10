@@ -15,6 +15,10 @@ class JesqueManagerUrlMappings {
         "/jesqueManager/jobs/trigger"(controller: 'jesqueManagerJob', action: 'triggers')
         "/jesqueManager/jobs/delayed"(controller: 'jesqueManagerJob', action: 'delayed')
 
+        "/jesqueManager/queues"(controller: 'jesqueManagerQueue', action: 'index')
+        "/jesqueManager/queues/details/$id"(controller: 'jesqueManagerQueue', action: 'details')
+        "/jesqueManager/queues/remove"(controller: 'jesqueManagerQueue', action: 'remove')
+
         "/jesqueManager/workers"(controller: 'jesqueManagerWorker', action: 'index')
         "/jesqueManager/workers/manual"(controller: 'jesqueManagerWorker', action: 'manual')
         "/jesqueManager/workers/start"(controller: 'jesqueManagerWorker', action: 'startWorker')

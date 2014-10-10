@@ -21,7 +21,10 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment-with-locales.min.js"></script>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'jesque.css')}">
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'jesque.css', plugin: 'jesqueManager')}">
+    <plugin:isAvailable name="resources">
+        <r:layoutResources/>
+    </plugin:isAvailable>
     <g:layoutHead/>
 </head>
 
@@ -78,6 +81,11 @@
                         </li>
                     </ul>
                 </li>
+                <li class="${controllerName == 'jesqueManagerQueue' ? 'active' : ''}">
+                    <g:link controller="jesqueManagerQueue" action="index">
+                        <g:message code="grails.plugin.jesque.manager.nav.queues"/>
+                    </g:link>
+                </li>
                 <li class="dropdown ${controllerName == 'jesqueManagerWorker' ? 'active' : ''}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><g:message code="grails.plugin.jesque.manager.nav.workers"/> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -114,6 +122,9 @@
 <footer class="footer">
     ${g.message(code: "grails.plugin.jesque.manager.view.footer")}
 </footer>
+<script src="${resource(dir: 'js', file: 'jesque.js', plugin: 'jesqueManager')}"></script>
+<plugin:isAvailable name="resources">
+    <r:layoutResources/>
+</plugin:isAvailable>
 </body>
-<script src="${resource(dir: 'js', file: 'jesque.js')}"></script>
 </html>

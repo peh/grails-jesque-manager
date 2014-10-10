@@ -3,9 +3,6 @@
 <head>
     <title></title>
     <meta name="layout" content="jesque"/>
-    <plugin:isAvailable name="resources">
-        <r:layoutResources/>
-    </plugin:isAvailable>
 </head>
 
 <body>
@@ -60,7 +57,7 @@
 </div>
 <script id="queue-list-template" type="text/x-handlebars-template">
 {{#each queues}}
-<tr class="clickable" data-target="${raw(g.createLink(controller: 'jesqueManagerJob', action: 'details'))}/{{name}}">
+<tr class="clickable" data-target="${raw(g.createLink(controller: 'jesqueManagerQueue', action: 'details'))}/{{name}}">
     <td>
         {{name}}
     </td>
@@ -140,8 +137,5 @@
         intervalId = setInterval(refresh, 1000)
     });
 </script>
-<plugin:isAvailable name="resources">
-    <r:layoutResources/>
-</plugin:isAvailable>
 </body>
 </html>
