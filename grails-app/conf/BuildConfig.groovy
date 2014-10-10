@@ -40,11 +40,14 @@ grails.project.dependency.resolution = {
             export = false
         }
 
-        build ':tomcat:7.0.54'
+        build ':tomcat:7.0.54'  {
+            export = false
+        }
 
         compile(':redis:1.5.5') {
             export = false
         }
+
         compile(':jesque:0.9.2-SNAPSHOT') {
             changing = true
             export = false
