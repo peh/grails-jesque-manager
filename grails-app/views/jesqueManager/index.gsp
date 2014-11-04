@@ -40,10 +40,10 @@
                     <g:message code="grails.plugin.jesque.manager.view.overview.worker.state"/>
                 </th>
                 <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.processed"/>
+                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.working.job"/>
                 </th>
                 <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.failed"/>
+                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.working.since"/>
                 </th>
                 <th>
                     <g:message code="grails.plugin.jesque.manager.view.overview.worker.queues"/>
@@ -73,7 +73,6 @@
         <g:message code="grails.plugin.jesque.manager.jobs.failed.label"/>
     </td>
     <td>
-
         {{count}}
     </td>
 </tr>
@@ -92,13 +91,17 @@
         {{state.name}}
     </td>
     <td>
-        {{processed}}
+        {{#if status}}
+            {{status.payload.className}}
+        {{/if}}
     </td>
     <td>
-        {{failed}}
+        {{#if status}}
+            {{fromNow status.runAt}} ({{format status.runAt}})
+        {{/if}}
     </td>
     <td>
-        {{queues}}
+        {{size queues}}
     </td>
 </tr>
 {{/each}}

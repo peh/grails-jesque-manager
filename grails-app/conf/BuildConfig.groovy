@@ -32,6 +32,7 @@ grails.project.dependency.resolution = {
     dependencies {
         compile "org.springframework:spring-expression:$springVersion"
         compile "org.springframework:spring-aop:$springVersion"
+        compile 'org.apache.commons:commons-pool2:2.2'
     }
 
     plugins {

@@ -39,12 +39,11 @@
             </thead>
             <tbody>
             <g:each in="${list}" var="item" status="i">
-                <tr class="clickable" data-get="${raw(g.createLink(controller: 'jesqueManagerJob', action: 'apiGet', id: params.offset + i))}">
+                <tr class="clickable" data-get="${raw(g.createLink(controller: 'jesqueManagerJob', action: 'apiGet', id: (params.getInt("offset") + i)))}">
                     <td>
                         ${item.payload.className}
                     </td>
                     <td class="fromNow" data-time="${item.failedAt.time}">
-
                     </td>
                     <td>
                         ${item.throwableString}
@@ -64,6 +63,10 @@
             </g:each>
             </tbody>
         </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         <jesque:paginate total="${total}" max="20"/>
     </div>
 </div>

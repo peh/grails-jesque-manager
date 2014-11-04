@@ -36,6 +36,12 @@
                     <g:message code="grails.plugin.jesque.manager.view.overview.worker.failed"/>
                 </th>
                 <th>
+                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.working.job"/>
+                </th>
+                <th>
+                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.working.since"/>
+                </th>
+                <th>
                     <g:message code="grails.plugin.jesque.manager.view.overview.worker.queues"/>
                 </th>
             </tr>
@@ -56,6 +62,16 @@
                     {{failed}}
                 </td>
                 <td>
+                    {{#if status}}
+                    {{status.payload.className}}
+                    {{/if}}
+                </td>
+                <td>
+                    {{#if status}}
+                    {{fromNow status.runAt}} ({{format status.runAt}})
+                    {{/if}}
+                </td>
+                <td>
                     {{queues}}
                 </td>
                 <td>
@@ -70,38 +86,41 @@
 </div>
 </script>
 <script type="text/javascript">
+
+    var intervalId = -1;
     $(function () {
+
         var queueListTemplate = Handlebars.compile($("#workers-template").html());
 
-        var intervalId = -1;
 
-        function onFail(){
-            if(intervalId != -1){
+        function onFail() {
+            if (intervalId != -1) {
                 clearInterval(intervalId);
                 $('#global-danger').text("${g.message(code: 'grails.plugin.jesque.manager.ajax.error')}").removeClass("hidden");
             }
         }
 
         function refresh() {
-            $.ajax("${raw(g.createLink(controller: 'jesqueManagerWorker', action: 'apiHostMap'))}").done(function(data) {
+            $.ajax("${raw(g.createLink(controller: 'jesqueManagerWorker', action: 'apiHostMap'))}").done(function (data) {
                 $('#hostmap').html("");
-                for(var key in data.hostmap) {
-                    var obj = {name: key,list: data.hostmap[key]};
+                for (var key in data.hostmap) {
+                    var obj = {name: key, list: data.hostmap[key]};
                     $('#hostmap').append(queueListTemplate(obj));
                 }
             }).fail(onFail);
         }
+
         intervalId = setInterval(refresh, 1000);
-        
+
     });
-    $(document).on('mouseup', '.remove-worker', function(event) {
+    $(document).on('mouseup', '.remove-worker', function (event) {
         var $self = $(this);
         var name = $self.data('target');
-        if(name != null) {
+        if (name != null) {
             $.ajax({
                 url: "${raw(g.createLink(controller: 'jesqueManagerWorker', action: 'apiRemove'))}",
                 data: {name: name},
-                success: function(data) {
+                success: function (data) {
                     $self.closest("tr").remove();
                 }
             });

@@ -30,6 +30,7 @@
 
 # plugin release file
 /*.zip
+/*.sha1
 
 # older plugin install locations
 /plugins
@@ -49,3 +50,4 @@ plugin.xml
 *.ipr
 *.iml
 *.iws
+

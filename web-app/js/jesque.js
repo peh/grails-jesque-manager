@@ -33,6 +33,10 @@ $(function () {
     });
 });
 
+Handlebars.registerHelper('size', function (collection) {
+    return collection.length;
+});
+
 Handlebars.registerHelper('fromNow', function (date) {
     if (date instanceof String)
         date = new Date(date);

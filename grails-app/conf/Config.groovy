@@ -1,5 +1,3 @@
-import grails.plugin.jesque.QueueConfiguration
-
 // configuration for plugin testing - will not be included in the plugin zip
 
 log4j = {
@@ -21,4 +19,13 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+}
+
+grails {
+    jesque {
+        // disables jesque by default, we dont wan't JobProcessing as long as it is not explicitly configured in an external configuration file on the server that is running the webapp
+        // if you need a skeleton configuration look into /opt/tomcat/conf/uberall-config.groovy on dev.uberall.com
+        enabled = true
+        monitoring = true
+    }
 }
