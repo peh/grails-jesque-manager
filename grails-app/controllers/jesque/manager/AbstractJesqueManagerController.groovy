@@ -18,7 +18,7 @@ abstract class AbstractJesqueManagerController {
     }
 
     def beforeInterceptor = {
-        if(grailsApplication.config.grails.jesque.enabled) {
+        if(!grailsApplication.config.grails.jesque.enabled) {
             render "Jesque is disabled!"
             return false
         }
