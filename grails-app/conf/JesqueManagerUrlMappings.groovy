@@ -24,7 +24,7 @@ class JesqueManagerUrlMappings {
         "/jesqueManager/workers/start"(controller: 'jesqueManagerWorker', action: 'startWorker')
 
 
-
+        "/jesqueManager/api/overview"(controller: 'jesqueManager', action: 'apiOverview')
         "/jesqueManager/api/queues"(controller: 'jesqueManagerQueue', action: 'apiQueues')
         "/jesqueManager/api/workers"(controller: 'jesqueManagerWorker', action: 'apiWorkers')
         "/jesqueManager/api/job/$id"(controller: 'jesqueManagerJob', action: 'apiGet')

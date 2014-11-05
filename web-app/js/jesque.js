@@ -33,7 +33,7 @@ $(function () {
     });
 });
 
-Handlebars.registerHelper('size', function (collection) {
+Handlebars.registerHelper('collectionSize', function (collection) {
     return collection.length;
 });
 

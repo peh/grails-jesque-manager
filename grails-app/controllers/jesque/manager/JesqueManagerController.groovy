@@ -10,4 +10,12 @@ class JesqueManagerController extends AbstractJesqueManagerController {
                 totalWorkerCount : jesqueWorkersService.workerCount
         ]
     }
+
+    def apiOverview(){
+        jsonRender([
+                queues: jesqueQueuesService.queueInfos.sort { it1, it2 -> it1.name <=> it2.name },
+                workers: jesqueWorkersService.allWorkers,
+                failed: jesqueFailureService.count
+        ])
+    }
 }

@@ -59,10 +59,10 @@
 {{#each queues}}
 <tr class="clickable" data-target="${raw(g.createLink(controller: 'jesqueManagerQueue', action: 'details'))}/{{name}}">
     <td>
-        {{name}}
+        {{ name }}
     </td>
     <td>
-        {{size}}
+        {{ size }}
     </td>
 </tr>
 {{/each}}
@@ -73,7 +73,7 @@
         <g:message code="grails.plugin.jesque.manager.jobs.failed.label"/>
     </td>
     <td>
-        {{count}}
+        {{failed}}
     </td>
 </tr>
 </script>
@@ -92,16 +92,16 @@
     </td>
     <td>
         {{#if status}}
-            {{status.payload.className}}
+        {{status.payload.className}}
         {{/if}}
     </td>
     <td>
         {{#if status}}
-            {{fromNow status.runAt}} ({{format status.runAt}})
+        {{fromNow status.runAt}} ({{format status.runAt}})
         {{/if}}
     </td>
     <td>
-        {{size queues}}
+        {{collectionSize queues}}
     </td>
 </tr>
 {{/each}}
@@ -125,14 +125,10 @@
         }
 
         function refresh() {
-            $.ajax("${raw(g.createLink(controller: 'jesqueManagerQueue', action: 'apiQueues'))}").done(function (data) {
+            $.ajax("${raw(g.createLink(controller: 'jesqueManager', action: 'apiOverview'))}").done(function (data) {
+                data["danger"] = data.failed > 0;
                 $queueListTable.find('tbody').html(queueListTemplate(data));
-            }).fail(onFail);
-            $.ajax("${raw(g.createLink(controller: 'jesqueManagerWorker', action: 'apiWorkers'))}").done(function (data) {
                 $workerListTable.find('tbody').html(workerListTemplate(data));
-            }).fail(onFail);
-            $.ajax("${raw(g.createLink(controller: 'jesqueManagerJob', action: 'apiFailedCount'))}").done(function (data) {
-                data["danger"] = data.count > 0;
                 $queueListTable.find('tfoot').html(failedTemplate(data));
             }).fail(onFail);
         }

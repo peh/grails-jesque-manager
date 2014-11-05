@@ -63,12 +63,12 @@
                 </td>
                 <td>
                     {{#if status}}
-                    {{status.payload.className}}
+                        {{status.payload.className}}
                     {{/if}}
                 </td>
                 <td>
                     {{#if status}}
-                    {{fromNow status.runAt}} ({{format status.runAt}})
+                        {{fromNow status.runAt}} ({{format status.runAt}})
                     {{/if}}
                 </td>
                 <td>
