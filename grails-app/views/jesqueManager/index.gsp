@@ -122,9 +122,11 @@
                 clearInterval(intervalId);
                 $('#global-danger').text("${g.message(code: 'grails.plugin.jesque.manager.ajax.error')}").removeClass("hidden");
             }
+            $('#stop-button').removeClass('fa-spin');
         }
 
         function refresh() {
+            $('#stop-button').addClass('fa-spin');
             $.ajax("${raw(g.createLink(controller: 'jesqueManager', action: 'apiOverview'))}").done(function (data) {
                 data["danger"] = data.failed > 0;
                 $queueListTable.find('tbody').html(queueListTemplate(data));
@@ -134,6 +136,10 @@
         }
 
         intervalId = setInterval(refresh, 1000)
+        $('#stop-button').removeClass("hidden").click(function () {
+            clearInterval(intervalId);
+            $('#stop-button').removeClass('fa-spin');
+        })
     });
 </script>
 </body>

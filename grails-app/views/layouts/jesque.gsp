@@ -109,6 +109,11 @@
                     </g:each>
                 </g:if>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="javascript: void(0)" id="stop-button" class="hidden"><i class="fa fa-minus-circle"></i></a>
+                </li>
+            </ul>
         </div><!--/.nav-collapse -->
     </div>
 </div>

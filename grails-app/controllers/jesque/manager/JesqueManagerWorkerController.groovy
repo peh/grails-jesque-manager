@@ -2,6 +2,7 @@ package jesque.manager
 
 import grails.plugin.jesque.GrailsJobFactory
 import grails.plugin.jesque.QueueConfiguration
+import net.greghaines.jesque.meta.WorkerInfo
 import net.greghaines.jesque.worker.JobFactory
 
 class JesqueManagerWorkerController extends AbstractJesqueManagerController {
@@ -22,7 +23,13 @@ class JesqueManagerWorkerController extends AbstractJesqueManagerController {
     }
 
     def apiHostMap() {
-        jsonRender(hostmap: jesqueWorkersService.workerHostMap)
+        def hostmap =  jesqueWorkersService.workerHostMap
+        def sortedMap = [:]
+        hostmap.each { String host, List<WorkerInfo> list ->
+            def sortedList = list.sort{it1, it2 -> it1.pid <=> it2.pid}
+            sortedMap << [(host): sortedList]
+        }
+        jsonRender(hostmap: sortedMap)
     }
 
     def apiRemove() {

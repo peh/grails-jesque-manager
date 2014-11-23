@@ -9,6 +9,7 @@
 <div id="hostmap">
 
 </div>
+
 <script id="workers-template" type="text/x-handlebars-template">
 <div class="row">
     <div class="col-md-12">
@@ -17,100 +18,71 @@
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-12">
-        <table id="worker-list-table" class="table table-hover">
-            <thead>
-            <tr>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.pid"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.state"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.processed"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.failed"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.working.job"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.working.since"/>
-                </th>
-                <th>
-                    <g:message code="grails.plugin.jesque.manager.view.overview.worker.queues"/>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each list}}
-            <tr>
-                <td>
-                    {{pid}}
-                </td>
-                <td>
-                    {{state.name}}
-                </td>
-                <td>
-                    {{processed}}
-                </td>
-                <td>
-                    {{failed}}
-                </td>
-                <td>
-                    {{#if status}}
-                        {{status.payload.className}}
-                    {{/if}}
-                </td>
-                <td>
-                    {{#if status}}
-                        {{fromNow status.runAt}} ({{format status.runAt}})
-                    {{/if}}
-                </td>
-                <td>
-                    {{queues}}
-                </td>
-                <td>
-                    <a href="javascript: void(0)" data-target="{{name}}" class="remove-worker btn btn-danger"><i class="fa fa-minus-circle"></i> <g:message
-                            code="grails.plugin.jesque.manager.view.overview.worker.remove"/></a>
-                </td>
-            </tr>
-            {{/each}}
-            </tbody>
-        </table>
+{{#each list}}
+<div class="row mtopten bbotgray">
+    <div class="col-md-10">
+        <dl id="{{name}}">
+            <dt><g:message code="grails.plugin.jesque.manager.view.overview.worker.pid"/></dt>
+            <dd>{{pid}}</dd>
+            <dt><g:message code="grails.plugin.jesque.manager.view.overview.worker.state"/></dt>
+            <dd>{{state.name}}</dd>
+            <dt><g:message code="grails.plugin.jesque.manager.view.overview.worker.processed"/></dt>
+            <dd>{{processed}}</dd>
+            <dt><g:message code="grails.plugin.jesque.manager.view.overview.worker.failed"/></dt>
+            <dd>{{failed}}</dd>
+            {{#if status}}
+                <dt><g:message code="grails.plugin.jesque.manager.view.overview.worker.working.job"/></dt>
+                <dd>{{status.payload.className}}</dd>
+                <dt><g:message code="grails.plugin.jesque.manager.view.overview.worker.working.args"/></dt>
+                <dd>{{#if status.payload.args}}{{status.payload.args}}{{else}}-{{/if}}</dd>
+                <dt><g:message code="grails.plugin.jesque.manager.view.overview.worker.working.since"/></dt>
+                <dd>{{fromNow status.runAt}} ({{format status.runAt}})</dd>
+            {{/if}}
+            <dt><g:message code="grails.plugin.jesque.manager.view.overview.worker.queues"/></dt>
+            <dd>{{queues}}</dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <a href="javascript: void(0)" data-target="{{name}}" class="remove-worker btn btn-danger">
+            <i class="fa fa-minus-circle"></i> <g:message code="grails.plugin.jesque.manager.view.worker.remove"/>
+        </a>
     </div>
 </div>
+{{/each}}
 </script>
 <script type="text/javascript">
 
     var intervalId = -1;
     $(function () {
 
-        var queueListTemplate = Handlebars.compile($("#workers-template").html());
+        var $root = $('#hostmap');
 
+        var queueListTemplate = Handlebars.compile($("#workers-template").html());
 
         function onFail() {
             if (intervalId != -1) {
                 clearInterval(intervalId);
                 $('#global-danger').text("${g.message(code: 'grails.plugin.jesque.manager.ajax.error')}").removeClass("hidden");
             }
+            $('#stop-button').removeClass('fa-spin');
         }
 
         function refresh() {
+            $('#stop-button').addClass('fa-spin');
             $.ajax("${raw(g.createLink(controller: 'jesqueManagerWorker', action: 'apiHostMap'))}").done(function (data) {
-                $('#hostmap').html("");
+                $root.empty();
                 for (var key in data.hostmap) {
                     var obj = {name: key, list: data.hostmap[key]};
-                    $('#hostmap').append(queueListTemplate(obj));
+                    $root.append(queueListTemplate(obj));
                 }
             }).fail(onFail);
         }
 
         intervalId = setInterval(refresh, 1000);
+        $('#stop-button').removeClass("hidden").click(function () {
+            clearInterval(intervalId);
+            $('#stop-button').removeClass('fa-spin');
+        })
 
     });
     $(document).on('mouseup', '.remove-worker', function (event) {

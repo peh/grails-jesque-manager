@@ -33,3 +33,11 @@ div.container-fluid.content {
   min-height: 600px;
   margin-bottom: 55px;
 }
+
+.mtopten {
+  margin-top: 10px;
+}
+
+.bbotgray {
+  border-bottom: 1px solid gray;
+}
