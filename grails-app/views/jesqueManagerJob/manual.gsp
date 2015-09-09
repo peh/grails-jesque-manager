@@ -31,7 +31,7 @@
 
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <g:form controller="jesqueManagerJob" action="enqueue" class="form" role="form">
+        <g:form controller="jesqueManagerJob" action="enqueue" class="form manual-form" role="form">
             <div class="form-group">
                 <g:select name="jobName" from="${jobs}" class="form-control" value="${selectedJob}"/>
             </div>
@@ -57,7 +57,6 @@
 <script type="text/javascript">
     $(function () {
         var template = Handlebars.compile($("#attrib-input").html());
-        var alertTemplate = Handlebars.compile($("#alert-template").html());
         var $container = $('#attribs-container');
         $(document).on("focusout", "form.manual-form input[data-type=autoadd]", function () {
             var $this = $(this);
