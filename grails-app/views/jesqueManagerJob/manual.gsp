@@ -38,7 +38,7 @@
 
             <div id="attribs-container">
                 <div class="form-group">
-                    <input class="form-control" name="attrib[]" type="text" data-type="autoadd"/>
+                    <input class="form-control" name="attrib[]" type="text" data-type="autoadd" data-remove="#initial"/>
                 </div>
             </div>
 
@@ -49,8 +49,8 @@
     </div>
 </div>
 <script id="attrib-input" type="text/x-handlebars-template">
-<div class="form-group">
-    <input class="form-control" name="attrib[]" type="text" data-type="autoadd"/>
+<div class="form-group" id="{{identifier}}">
+    <input class="form-control" name="attrib[]" type="text" data-type="autoadd" data-remove="#{{identifier}}"/>
 </div>
 </script>
 
@@ -60,17 +60,16 @@
         var $container = $('#attribs-container');
         $(document).on("focusout", "form.manual-form input[data-type=autoadd]", function () {
             var $this = $(this);
-            var $all = $("form.manual-form input[data-type=autoadd]");
 
-            if(!$this.val() && $all.size() > 1 && $this != $all.last()){
-                $this.parent().parent().remove();
+            if(!$this.val()){
+                $($this.data('remove')).remove();
             }
         });
         $(document).on("keyup", "form.manual-form input[data-type=autoadd]", function () {
             var $this = $(this);
             var $all = $("form.manual-form input[data-type=autoadd]");
             if ($all.last().val() && $this.val()) {
-                $container.append(template());
+                $container.append(template({identifier: Math.random().toString(36).substring(7)}));
             }
         });
     });
