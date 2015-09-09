@@ -22,7 +22,8 @@ class JesqueManagerService {
             sortingParams = order == 'desc' ? sortingParams.desc() : sortingParams.asc()
 
             jedis.sort(jesqueService.getClassesDoneKey(name), sortingParams).each { id ->
-                result.list.add(jedis.hgetAll(jesqueService.getDoneKey(id as long)))
+                if(id.isNumber())
+                    result.list.add(jedis.hgetAll(jesqueService.getDoneKey(id as Long)))
             }
             result.total = jedis.llen(jesqueService.getClassesDoneKey(name))
         }

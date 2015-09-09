@@ -27,7 +27,7 @@
             <tbody id="jobs">
             <g:each in="${list.list}" var="job">
                 <tr class="${!Boolean.parseBoolean(job.success) ? 'danger' : ''}">
-                    <td class="fromNow" data-time="${job.start}" data-add="${g.formatDate(date: new Date(job.start as long), type:"datetime", style:"LONG")}">
+                    <td class="fromNow" data-time="${job.start}" data-add="${g.formatDate(date: new Date(job.start? job.start as Long : 0L), type:"datetime", style:"LONG")}">
                         ${job.start}
                     </td>
                     <td>

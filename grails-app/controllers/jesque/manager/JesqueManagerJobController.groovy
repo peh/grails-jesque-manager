@@ -78,13 +78,13 @@ class JesqueManagerJobController extends AbstractJesqueManagerController {
         def list = params.getList('attrib[]').grep()
         if (list.size() == 1) {
             list = list.first()
-            if (list.isNumber())
-                list = list as long
+            if ("$list".isNumber())
+                list = list as Long
         } else {
             def temp = []
             list.each { def value ->
                 if (value.toString().isNumber()) {
-                    temp.add(value as long)
+                    temp.add(value as Long)
                 } else if (value instanceof String) {
                     temp.add(value.toBoolean())
                 } else
