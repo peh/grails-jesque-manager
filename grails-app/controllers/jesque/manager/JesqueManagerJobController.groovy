@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus
 
 class JesqueManagerJobController extends AbstractJesqueManagerController {
 
+    private static final BOOLEAN_VALUES = ['true', 'false']
+
     def index() {
         [jobs: jesqueManagerService.doneJobList]
     }
@@ -75,29 +77,20 @@ class JesqueManagerJobController extends AbstractJesqueManagerController {
 
     def enqueue() {
         def clazz = QueueConfiguration.jobTypes.get(params.jobName)
-        def list = params.getList('attrib[]').grep()
-        if (list.size() == 1) {
-            list = list.first()
-            if ("$list".isNumber())
-                list = list as Long
-        } else {
-            def temp = []
-            list.each { def value ->
-                if (value.toString().isNumber()) {
-                    temp.add(value as Long)
-                } else if (value instanceof String) {
-                    temp.add(value.toBoolean())
-                } else
-                    temp.add(value)
-            }
-            list = temp
+        def list = []
+        params.getList('attrib[]').grep().each { def value ->
+            if (value.toString().isNumber()) {
+                list.add(value as Long)
+            } else if (value instanceof String && value.toLowerCase() in BOOLEAN_VALUES) {
+                list.add(value.toBoolean())
+            } else
+                list.add(value)
         }
 
         jesqueService.enqueue(QueueConfiguration.getQueueName(clazz), "$params.jobName", list)
 
         flash.success = true
         render(view: 'manual', model: [selectedJob: params.jobName, jobs: QueueConfiguration.jobTypes.keySet().sort()])
-//        jsonRender([status: 'OK', jobName: params.jobName, parameters: params.attrs])
     }
 
     def apiFailedCount() {
