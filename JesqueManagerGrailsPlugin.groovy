@@ -1,5 +1,5 @@
 class JesqueManagerGrailsPlugin {
-    def version = "1.0.5-SNAPSHOT"
+    def version = "1.0.6-SNAPSHOT"
     def grailsVersion = "2.4 > *"
     def dependsOn = [jesque: '0.9.2-SNAPSHOT > *']
     def pluginExcludes = [
