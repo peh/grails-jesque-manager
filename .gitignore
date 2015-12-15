@@ -51,3 +51,5 @@ plugin.xml
 *.iml
 *.iws
 
+/frontend/node_modules/
+.slcache

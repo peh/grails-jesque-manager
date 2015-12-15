@@ -1,0 +1,47 @@
+$enable-flex: true !default;
+$enable-rounded: false !default;
+$enable-shadows: false !default;
+$enable-gradients: true !default;
+$enable-transitions: true !default;
+$enable-hover-media-query: false !default;
+$enable-grid-classes: true !default;
+@import './node_modules/bootstrap/scss/bootstrap.scss';
+@import './node_modules/font-awesome/scss/font-awesome.scss';
+@import url('//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300');
+@import 'sweetalert';
+html,
+body {
+  font-family: 'Open Sans', sans-serif !important;
+  height: 100vh;
+  width: 100vw;
+}
+.app-content {
+  padding-top: 15px;
+}
+th.sortable {
+  &.sorted {
+    &.desc {
+      a:before {
+        content: $fa-var-sort-desc;
+      }
+    }
+    &.asc {
+      a:before {
+        content: $fa-var-sort-asc;
+      }
+    }
+    a:before {
+      color: black;
+      margin-right: 3px;
+      text-decoration: none;
+      font-family: FontAwesome;
+      font-weight: normal;
+      font-style: normal;
+      display: inline-block;
+    }
+  }
+}
+
+.clickable {
+  cursor: pointer !important;
+}

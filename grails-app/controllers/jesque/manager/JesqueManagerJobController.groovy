@@ -19,37 +19,55 @@ class JesqueManagerJobController extends AbstractJesqueManagerController {
         ]
     }
 
+    def apiDelayed() {
+        jsonRender([jobs: jesqueScheduledService.scheduledJobs])
+    }
+
+    def apiFailed() {
+        sanitizeParams()
+        jsonRender([
+                list : jesqueFailureService.getFailures(params.getLong("offset"), params.getLong("max")),
+                total: jesqueFailureService.count
+        ])
+    }
+
+    def apiRetry(long id) {
+        jesqueFailureService.requeue(id.toLong())
+        jsonRender([success:true])
+    }
+
+    def apiRemove(long id) {
+        jesqueFailureService.remove(id.toLong())
+        jsonRender([success:true])
+    }
+
+    def apiRetryAll(){
+        jesqueFailureService.count.times {
+            jesqueFailureService.requeue(it)
+        }
+        jsonRender([success:true])
+    }
+
+    def apiRemoveAll(){
+        jesqueFailureService.clear()
+        jsonRender([success:true])
+    }
+
+    def apiFailedCount() {
+        jsonRender([count: jesqueFailureService.count])
+    }
+
+    def apiDeleteTrigger() {
+        jesqueScheduledService.delete(params.name)
+        jsonRender([success: "OK"])
+    }
+
     def manual() {
         [jobs: QueueConfiguration.jobTypes.keySet().sort()]
     }
 
-    def requeue(long id) {
-        jesqueFailureService.requeue(id.toLong())
-        redirect(action: 'failed')
-    }
-
-    def remove(long id) {
-        jesqueFailureService.remove(id.toLong())
-
-        redirect(action: 'failed')
-    }
-
-    def clear() {
-        jesqueFailureService.clear()
-
-        redirect(action: 'failed')
-    }
-
     def triggers() {
         [scheduledJobs: jesqueScheduledService.all.sort { it.trigger.nextFireTime.millis }]
-    }
-
-    def retryAll() {
-        jesqueFailureService.count.times {
-            jesqueFailureService.requeue(it)
-        }
-
-        redirect(action: 'failed')
     }
 
     def details() {
@@ -93,12 +111,5 @@ class JesqueManagerJobController extends AbstractJesqueManagerController {
         render(view: 'manual', model: [selectedJob: params.jobName, jobs: QueueConfiguration.jobTypes.keySet().sort()])
     }
 
-    def apiFailedCount() {
-        jsonRender([count: jesqueFailureService.count])
-    }
 
-    def apiDeleteTrigger() {
-        jesqueScheduledService.delete(params.name)
-        jsonRender([success: "OK"])
-    }
 }
