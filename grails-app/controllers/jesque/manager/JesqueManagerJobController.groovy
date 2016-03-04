@@ -32,7 +32,7 @@ class JesqueManagerJobController extends AbstractJesqueManagerController {
     }
 
     def apiRetry(long id) {
-        jesqueFailureService.requeue(id.toLong())
+        jesqueFailureService.requeue(id)
         jsonRender([success:true])
     }
 

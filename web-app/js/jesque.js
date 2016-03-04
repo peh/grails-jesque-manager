@@ -56753,7 +56753,9 @@ require('bootstrap');
 var App = _react2['default'].createClass({
   displayName: 'App',
 
-  mixins: [RouterMixin], routes: {
+  mixins: [RouterMixin],
+
+  routes: {
     '/': 'overview',
     '/jobs/failed/:page': 'failedList',
     '/jobs': 'jobsList',

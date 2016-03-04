@@ -12,7 +12,9 @@ require('bootstrap')
 
 var App = React.createClass({
 
-  mixins: [RouterMixin], routes: {
+  mixins: [RouterMixin],
+
+  routes: {
     '/': 'overview',
     '/jobs/failed/:page': 'failedList',
     '/jobs': 'jobsList',
@@ -31,9 +33,9 @@ var App = React.createClass({
   },
 
   failedList: function(page) {
-    if(!page) {
+    if (!page) {
       page = 1
-    } else if(typeof page === 'string') {
+    } else if (typeof page === 'string') {
       page = parseInt(page)
     }
     return <FailedList page={page} />

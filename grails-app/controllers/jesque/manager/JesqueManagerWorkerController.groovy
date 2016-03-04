@@ -23,12 +23,14 @@ class JesqueManagerWorkerController extends AbstractJesqueManagerController {
     }
 
     def apiHostMap() {
-        def hostmap =  jesqueWorkersService.workerHostMap
+        def hostmap = jesqueWorkersService.workerHostMap
         def sortedMap = [:]
         hostmap.each { String host, List<WorkerInfo> list ->
-            def sortedList = list.sort{it1, it2 -> it1.pid <=> it2.pid}
+            def sortedList = list.sort { it1, it2 -> it1.pid <=> it2.pid }
             sortedMap << [(host): sortedList]
         }
+
+
         jsonRender(hostmap: sortedMap)
     }
 

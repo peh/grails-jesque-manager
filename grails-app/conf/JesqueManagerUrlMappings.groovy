@@ -28,6 +28,7 @@ class JesqueManagerUrlMappings {
         "/jesqueManager/api/queues"(controller: 'jesqueManagerQueue', action: 'apiQueues')
         "/jesqueManager/api/workers"(controller: 'jesqueManagerWorker', action: 'apiWorkers')
         "/jesqueManager/api/job/$id"(controller: 'jesqueManagerJob', action: 'apiGet')
+        "/jesqueManager/api/job/$id/retry"(controller: 'jesqueManagerJob', action: 'apiRetry')
         "/jesqueManager/api/failedCount"(controller: 'jesqueManagerJob', action: 'apiFailedCount')
         "/jesqueManager/api/failed"(controller: 'jesqueManagerJob', action: 'apiFailed')
         "/jesqueManager/api/jobs"(controller: 'jesqueManagerJob', action: 'apiList')
